@@ -1,6 +1,6 @@
-AI Wallpaper Generator
+## AI Wallpaper Generator
 
-Uses Dall-e-3 to generate an image based on a prompt, allowing the user to set the resulting image as a wallpaper.
+- Uses Dall-e-3 to generate an image based on a prompt, allowing the user to set the resulting image as a wallpaper.
 
 // TODO 
 
