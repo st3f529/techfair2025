@@ -2,7 +2,7 @@ package com.simple.imagegenerator.network.repo
 
 import com.simple.imagegenerator.network.OpenAi
 import com.simple.imagegenerator.network.Images
-import com.simple.imagegenerator.network.models.DallEImageRequest
+import com.simple.imagegenerator.network.models.ImageRequest
 import com.simple.imagegenerator.network.models.ImageResponse
 import com.simple.imagegenerator.network.models.ImageSize
 import kotlinx.coroutines.Dispatchers
@@ -18,7 +18,7 @@ class ImagesRepo(private val images: Images = OpenAi.images()) {
             withContext(Dispatchers.IO) {
                 val result =
                     images.createFromPrompt(
-                        request = DallEImageRequest(
+                        request = ImageRequest(
                             prompt = prompt,
                             imageSize = imageSize
                         )
