@@ -64,6 +64,7 @@ fun ImageRatioSelection(
             Box(
                 modifier = Modifier
                     .size(100.dp)
+                    .padding(2.dp)
                     .border(
                         width = if(isSelected) 3.dp else 1.dp,
                         color = if(isSelected) MaterialTheme.colorScheme.primary else Color.Gray,

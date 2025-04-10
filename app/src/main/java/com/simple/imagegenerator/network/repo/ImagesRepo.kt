@@ -15,9 +15,14 @@ class ImagesRepo(private val images: Images = OpenAi.images()) {
         imageSize: ImageSize
     ): Result<ImageResponse> {
         return kotlin.runCatching {
-            withContext(Dispatchers.IO){
+            withContext(Dispatchers.IO) {
                 val result =
-                    images.createFromPrompt(request = DallEImageRequest(prompt = prompt, imageSize = imageSize))
+                    images.createFromPrompt(
+                        request = DallEImageRequest(
+                            prompt = prompt,
+                            imageSize = imageSize
+                        )
+                    )
                 result
             }
         }

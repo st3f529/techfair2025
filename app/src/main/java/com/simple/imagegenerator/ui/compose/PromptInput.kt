@@ -43,7 +43,6 @@ fun PromptInput(imageViewModel: ImageViewModel) {
             inputError = prompt.isBlank()
             if (!inputError) {
                 imageViewModel.createForPrompt(prompt)
-                inputError = false
             }
         }
         ) {

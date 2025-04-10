@@ -10,6 +10,7 @@ import coil.request.ImageRequest
 import coil.request.SuccessResult
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import kotlin.math.roundToInt
 
 object LocalWallPaperManager {
 
@@ -18,14 +19,9 @@ object LocalWallPaperManager {
         val manager = WallpaperManager.getInstance(context)
 
         withContext(Dispatchers.IO) {
-            val metrics = context.resources.displayMetrics
-            val screenWidth = metrics.widthPixels
-            val screenHeight = metrics.heightPixels
-
             val loader = context.imageLoader
             val request = ImageRequest.Builder(context)
                 .data(imageUrl)
-                .size(screenWidth, screenHeight)
                 .allowHardware(false)
                 .build()
 
@@ -34,6 +30,8 @@ object LocalWallPaperManager {
                 val drawable = result.drawable
                 val bitmap = (drawable as BitmapDrawable).bitmap
                 manager.setBitmap(bitmap)
+            } else {
+                // we will now spin forever ^.^
             }
         }
     }

@@ -12,7 +12,6 @@ object OpenAi {
 
     internal const val TEST_API_KEY = "ADD_ME"
 
-
     private val gson = GsonBuilder().create()
 
     private fun retrofit(): Retrofit {
