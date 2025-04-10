@@ -13,5 +13,5 @@ class DallEImageRequest(
 ) : ImageRequest {
     override val model: String = "dall-e-3"
     override val n: Int = 1
-    override val size: String = imageSize.size
+    override val size: String = imageSize.imageSize
 }

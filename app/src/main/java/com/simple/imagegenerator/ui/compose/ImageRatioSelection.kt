@@ -46,7 +46,7 @@ fun ImageRatioSelection(
     val scope = rememberCoroutineScope()
     val dataStore = context.dataStore
 
-    var selectedId by remember { mutableStateOf<String?>(imageIds.first().size) }
+    var selectedId by remember { mutableStateOf<String?>(imageIds.first().imageSize) }
 
     LaunchedEffect(Unit) {
         dataStore.data.map { prefs -> prefs[SELECTED_IMAGE_RATIO] }
@@ -59,7 +59,7 @@ fun ImageRatioSelection(
         horizontalArrangement = Arrangement.SpaceEvenly
     ) {
         imageIds.forEach { imageId ->
-            val isSelected = selectedId == imageId.size
+            val isSelected = selectedId == imageId.imageSize
 
             Box(
                 modifier = Modifier
@@ -71,10 +71,10 @@ fun ImageRatioSelection(
                         shape = RoundedCornerShape(12.dp)
                     ).clickable {
                         viewModel.imageSize = imageId
-                        selectedId = imageId.size
+                        selectedId = imageId.imageSize
                         scope.launch {
                             dataStore.edit { prefs ->
-                                prefs[SELECTED_IMAGE_RATIO] = imageId.size
+                                prefs[SELECTED_IMAGE_RATIO] = imageId.imageSize
                             }
                         }
                     },
