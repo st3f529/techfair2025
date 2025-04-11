@@ -15,6 +15,7 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
 sealed class UiState {
+    data object Init: UiState()
     data object Input : UiState()
     data class Loading(val finalizingWallpaper: Boolean = false) : UiState()
     data class Success(val response: ImageResponse) : UiState()
@@ -23,7 +24,7 @@ sealed class UiState {
 
 class ImageViewModel(private val repository: ImagesRepo = ImagesRepo()) : ViewModel() {
 
-    private val _uiState: MutableStateFlow<UiState> = MutableStateFlow(UiState.Input)
+    private val _uiState: MutableStateFlow<UiState> = MutableStateFlow(UiState.Init)
 
     val uiState = _uiState.stateIn(
         scope = viewModelScope,
@@ -35,6 +36,12 @@ class ImageViewModel(private val repository: ImagesRepo = ImagesRepo()) : ViewMo
     private var jobDebounce: Job? = null
 
     var imageSize: ImageSize = ImageSize.SQUARE
+
+    fun onPermissionGranted() {
+        viewModelScope.launch {
+            _uiState.emit(UiState.Input)
+        }
+    }
 
     fun createForPrompt(
         prompt: String

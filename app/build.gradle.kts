@@ -10,7 +10,7 @@ android {
 
     defaultConfig {
         applicationId = "com.simple.imagegenerator"
-        minSdk = 28
+        minSdk = 29
         targetSdk = 35
         versionCode = 1
         versionName = "1.0"
@@ -55,6 +55,8 @@ dependencies {
     implementation(libs.androidx.datastore.preferences)
     implementation(libs.coil.compose)
     implementation(libs.material3)
+    implementation(libs.androidx.work.runtime.ktx)
+    implementation(libs.accompanist.permissions)
 
     // don't need all of these but w/e
     implementation(libs.androidx.lifecycle.viewmodel.ktx)

@@ -10,7 +10,6 @@ import coil.request.ImageRequest
 import coil.request.SuccessResult
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import kotlin.math.roundToInt
 
 object LocalWallPaperManager {
 
@@ -29,6 +28,7 @@ object LocalWallPaperManager {
             if (result is SuccessResult) {
                 val drawable = result.drawable
                 val bitmap = (drawable as BitmapDrawable).bitmap
+                ImageSaver(context, bitmap).save()
                 manager.setBitmap(bitmap)
             } else {
                 // we will now spin forever ^.^

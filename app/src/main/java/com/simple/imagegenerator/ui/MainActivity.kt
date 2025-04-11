@@ -1,9 +1,13 @@
 package com.simple.imagegenerator.ui
 
+import android.Manifest
+import android.content.pm.PackageManager
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -17,9 +21,15 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.State
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.simple.imagegenerator.ui.compose.DisplayWallpaperSheet
@@ -27,6 +37,7 @@ import com.simple.imagegenerator.ui.compose.ImageRatioSelection
 import com.simple.imagegenerator.ui.theme.ImageGeneratorTheme
 import com.simple.imagegenerator.ui.compose.Loading
 import com.simple.imagegenerator.ui.compose.OopsError
+import com.simple.imagegenerator.ui.compose.PermissionRequest
 import com.simple.imagegenerator.ui.compose.PromptInput
 import com.simple.imagegenerator.viewmodels.ImageViewModel
 import com.simple.imagegenerator.viewmodels.UiState
@@ -68,6 +79,7 @@ fun WallpaperGenerator(
     modifier: Modifier = Modifier,
     viewModel: ImageViewModel = viewModel()
 ) {
+
     Column(modifier = modifier.fillMaxSize()) {
         Row {
             Column(
@@ -82,6 +94,9 @@ fun WallpaperGenerator(
         Row {
             Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                 when (val state = viewModel.uiState.collectAsStateWithLifecycle().value) {
+                    is UiState.Init -> {
+                        PermissionRequest(imageViewModel = viewModel)
+                    }
                     is UiState.Input -> {
                         PromptInput(imageViewModel = viewModel)
                     }
